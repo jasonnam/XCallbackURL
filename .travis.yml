@@ -1,0 +1,14 @@
+cache:
+  directories:
+    - .build/checkouts
+    - .build/repositories
+os: osx
+language: objective-c
+osx_image: xcode11
+script:
+  - swift build
+deploy:
+  provider: script
+  script: pod trunk push
+  on:
+    tags: true
