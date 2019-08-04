@@ -124,7 +124,7 @@ open class XCallbackURLHandler {
         return .success(
             .init(
                 scheme: scheme,
-                action: urlComponents.path,
+                action: url.lastPathComponent,
                 parameters: parameters,
                 successCallbackURL: successCallbackURL,
                 errorCallbackURL: errorCallbackURL,
