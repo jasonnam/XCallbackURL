@@ -48,7 +48,7 @@ open class XCallbackURLHandler {
             successCallback = { [weak self] parameters in
                 guard var urlComponents = URLComponents(url: successCallbackURL, resolvingAgainstBaseURL: false) else { return }
                 var queryItems = urlComponents.queryItems ?? []
-                queryItems.append(contentsOf: parameters.map { .init(name: $0, value: $1) })
+                queryItems.append(contentsOf: (parameters ?? [:]).map { .init(name: $0, value: $1) })
                 urlComponents.queryItems = queryItems
                 guard let url = urlComponents.url else { return }
                 self?.open(url)
@@ -74,9 +74,9 @@ open class XCallbackURLHandler {
         delegate?.handleXCallbackURL(
             action: xCallbackURL.action,
             parameters: xCallbackURL.parameters,
-            success: successCallback,
-            error: errorCallback,
-            cancel: cancelCallback
+            successCallback: successCallback,
+            errorCallback: errorCallback,
+            cancelCallback: cancelCallback
         )
     }
 
@@ -124,7 +124,7 @@ open class XCallbackURLHandler {
         return .success(
             .init(
                 scheme: scheme,
-                action: urlComponents.path,
+                action: url.lastPathComponent,
                 parameters: parameters,
                 successCallbackURL: successCallbackURL,
                 errorCallbackURL: errorCallbackURL,
