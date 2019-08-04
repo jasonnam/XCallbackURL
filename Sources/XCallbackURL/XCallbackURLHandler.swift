@@ -96,21 +96,22 @@ open class XCallbackURLHandler {
         for queryItem in urlComponents.queryItems ?? [] {
             let name = queryItem.name
             let value = queryItem.value ?? ""
+            let encodedValue = value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
             switch name {
             case XCallbackURL.Parameter.success:
-                if let url = URL(string: value) {
+                if let url = URL(string: encodedValue) {
                     successCallbackURL = url
                 } else {
                     return .failure(.invalidSuccessCallbackURL(value))
                 }
             case XCallbackURL.Parameter.error:
-                if let url = URL(string: value) {
+                if let url = URL(string: encodedValue) {
                     errorCallbackURL = url
                 } else {
                     return .failure(.invalidErrorCallbackURL(value))
                 }
             case XCallbackURL.Parameter.cancel:
-                if let url = URL(string: value) {
+                if let url = URL(string: encodedValue) {
                     cancelCallbackURL = url
                 } else {
                     return .failure(.invalidCancelCallbackURL(value))
