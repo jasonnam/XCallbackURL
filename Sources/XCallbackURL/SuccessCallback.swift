@@ -23,4 +23,4 @@
 //  THE SOFTWARE.
 //
 
-public typealias SuccessCallback = (Parameters) -> Void
+public typealias SuccessCallback = (Parameters?) -> Void
