@@ -25,5 +25,9 @@
 
 public protocol XCallbackURLHandlerDelegate: AnyObject {
 
-    func handleXCallbackURL(action: String, parameters: Parameters, success: SuccessCallback?, error: ErrorCallback?, cancel: CancelCallback?)
+    func handleXCallbackURL(action: String,
+                            parameters: Parameters,
+                            successCallback: SuccessCallback?,
+                            errorCallback: ErrorCallback?,
+                            cancelCallback: CancelCallback?)
 }

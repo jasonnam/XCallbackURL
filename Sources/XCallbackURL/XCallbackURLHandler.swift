@@ -74,9 +74,9 @@ open class XCallbackURLHandler {
         delegate?.handleXCallbackURL(
             action: xCallbackURL.action,
             parameters: xCallbackURL.parameters,
-            success: successCallback,
-            error: errorCallback,
-            cancel: cancelCallback
+            successCallback: successCallback,
+            errorCallback: errorCallback,
+            cancelCallback: cancelCallback
         )
     }
 
