@@ -44,4 +44,18 @@ public struct XCallbackURL {
     public let successCallbackURL: URL?
     public let errorCallbackURL: URL?
     public let cancelCallbackURL: URL?
+
+    public init(scheme: String,
+                action: String,
+                parameters: Parameters = [:],
+                successCallbackURL: URL? = nil,
+                errorCallbackURL: URL? = nil,
+                cancelCallbackURL: URL? = nil) {
+        self.scheme = scheme
+        self.action = action
+        self.parameters = parameters
+        self.successCallbackURL = successCallbackURL
+        self.errorCallbackURL = errorCallbackURL
+        self.cancelCallbackURL = cancelCallbackURL
+    }
 }
