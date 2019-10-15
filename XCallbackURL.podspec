@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name     = 'XCallbackURL'
-  spec.version  = '0.1.3'
+  spec.version  = '0.1.4'
   spec.authors  = { 'Jason Nam' => 'contact@jasonnam.com' }
   spec.license  = 'MIT'
   spec.homepage = 'https://github.com/jasonnam/XCallbackURL'
