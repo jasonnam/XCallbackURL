@@ -4,10 +4,6 @@ import PackageDescription
 
 let package = Package(
     name: "XCallbackURL",
-    platforms: [
-        .macOS(.v10_10),
-        .iOS(.v8)
-    ],
     products: [
         .library(
             name: "XCallbackURL",
