@@ -23,6 +23,8 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 public protocol XCallbackURLHandlerDelegate: AnyObject {
 
     func handleXCallbackURL(action: String,
@@ -30,4 +32,5 @@ public protocol XCallbackURLHandlerDelegate: AnyObject {
                             successCallback: SuccessCallback?,
                             errorCallback: ErrorCallback?,
                             cancelCallback: CancelCallback?)
+    func openCallbackURL(_ url: URL)
 }

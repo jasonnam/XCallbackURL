@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name     = 'XCallbackURL'
-  spec.version  = '0.1.3'
+  spec.version  = '0.1.4'
   spec.authors  = { 'Jason Nam' => 'contact@jasonnam.com' }
   spec.license  = 'MIT'
   spec.homepage = 'https://github.com/jasonnam/XCallbackURL'
@@ -10,5 +10,6 @@ Pod::Spec.new do |spec|
   spec.swift_version = '5.0'
   spec.ios.deployment_target = '8.0'
   spec.osx.deployment_target = '10.10'
+  spec.tvos.deployment_target = '9.0'
   spec.source_files = 'Sources/XCallbackURL/**/*.{swift}'
 end

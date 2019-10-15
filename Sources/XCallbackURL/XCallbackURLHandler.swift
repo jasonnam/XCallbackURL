@@ -23,11 +23,7 @@
 //  THE SOFTWARE.
 //
 
-#if os(macOS)
-import AppKit
-#elseif os(iOS)
-import UIKit
-#endif
+import Foundation
 
 open class XCallbackURLHandler {
 
@@ -134,14 +130,6 @@ open class XCallbackURLHandler {
     }
 
     open func open(_ url: URL) {
-        #if os(macOS)
-        NSWorkspace.shared.open(url)
-        #elseif os(iOS)
-        if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.openURL(url)
-        }
-        #endif
+        delegate?.openCallbackURL(url)
     }
 }
