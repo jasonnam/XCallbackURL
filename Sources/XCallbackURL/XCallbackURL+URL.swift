@@ -1,5 +1,5 @@
 //
-//  XCallbackURL.swift
+//  XCallbackURL+URL.swift
 //  XCallbackURL
 //
 //  Copyright © 2019 Jason Nam (https://jasonnam.com)
@@ -25,37 +25,24 @@
 
 import Foundation
 
-public struct XCallbackURL {
+public extension XCallbackURL {
 
-    public static let host = "x-callback-url"
-
-    public struct Parameter {
-
-        public static let success = "x-success"
-        public static let error = "x-error"
-        public static let cancel = "x-cancel"
-        public static let errorCode = "errorCode"
-        public static let errorMessage = "errorMessage"
-    }
-
-    public let scheme: String
-    public let action: String
-    public let parameters: Parameters
-    public let successCallbackURL: URL?
-    public let errorCallbackURL: URL?
-    public let cancelCallbackURL: URL?
-
-    public init(scheme: String,
-                action: String,
-                parameters: Parameters = [:],
-                successCallbackURL: URL? = nil,
-                errorCallbackURL: URL? = nil,
-                cancelCallbackURL: URL? = nil) {
-        self.scheme = scheme
-        self.action = action
-        self.parameters = parameters
-        self.successCallbackURL = successCallbackURL
-        self.errorCallbackURL = errorCallbackURL
-        self.cancelCallbackURL = cancelCallbackURL
+    var url: URL? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = scheme
+        urlComponents.host = XCallbackURL.host
+        urlComponents.path = "/\(action)"
+        var queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        if let successCallbackURL = successCallbackURL {
+            queryItems.append(.init(name: Parameter.success, value: successCallbackURL.absoluteString))
+        }
+        if let errorCallbackURL = errorCallbackURL {
+            queryItems.append(.init(name: Parameter.error, value: errorCallbackURL.absoluteString))
+        }
+        if let cancelCallbackURL = cancelCallbackURL {
+            queryItems.append(.init(name: Parameter.cancel, value: cancelCallbackURL.absoluteString))
+        }
+        urlComponents.queryItems = queryItems
+        return urlComponents.url
     }
 }
