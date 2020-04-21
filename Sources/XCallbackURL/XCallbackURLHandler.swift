@@ -29,6 +29,8 @@ open class XCallbackURLHandler {
 
     open weak var delegate: XCallbackURLHandlerDelegate?
 
+    public var allowEmptyHost = false
+
     public let scheme: String
 
     public init(scheme: String) {
@@ -80,7 +82,7 @@ open class XCallbackURLHandler {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             return .failure(.invalidURL(url))
         }
-        guard urlComponents.scheme == scheme && urlComponents.host == XCallbackURL.host else {
+        guard urlComponents.scheme == scheme && ((urlComponents.host == XCallbackURL.host) || (allowEmptyHost && (urlComponents.host == ""))) else {
             return .failure(.notXCallbackURL(url))
         }
 
