@@ -3,8 +3,8 @@ cache:
     - .build/checkouts
     - .build/repositories
 os: osx
-language: objective-c
-osx_image: xcode11
+language: swift
+osx_image: xcode13.4
 script:
   - swift build
 deploy:

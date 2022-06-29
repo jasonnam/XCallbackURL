@@ -30,6 +30,7 @@ open class XCallbackURLHandler {
     open weak var delegate: XCallbackURLHandlerDelegate?
 
     public var allowEmptyHost = false
+    public var allowEmptyAction = false
 
     public let scheme: String
 
@@ -82,7 +83,17 @@ open class XCallbackURLHandler {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             return .failure(.invalidURL(url))
         }
-        guard urlComponents.scheme == scheme && ((urlComponents.host == XCallbackURL.host) || (allowEmptyHost && (urlComponents.host == ""))) else {
+        guard urlComponents.scheme == scheme else {
+            return .failure(.notXCallbackURL(url))
+        }
+
+        let hasEmptyHost = (urlComponents.host == "") || (urlComponents.host == nil)
+        guard (urlComponents.host == XCallbackURL.host) || (allowEmptyHost && hasEmptyHost) else {
+            return .failure(.notXCallbackURL(url))
+        }
+
+        let hasEmptyAction = url.pathComponents.isEmpty || (url.pathComponents == ["/"])
+        guard (url.pathComponents.starts(with: ["/"]) && (url.pathComponents.count == 2)) || (allowEmptyAction && hasEmptyAction) else {
             return .failure(.notXCallbackURL(url))
         }
 
@@ -122,7 +133,7 @@ open class XCallbackURLHandler {
         return .success(
             .init(
                 scheme: scheme,
-                action: url.lastPathComponent,
+                action: hasEmptyAction ? "" : url.lastPathComponent,
                 parameters: parameters,
                 successCallbackURL: successCallbackURL,
                 errorCallbackURL: errorCallbackURL,
